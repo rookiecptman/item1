@@ -10,24 +10,22 @@
     <keep-alive>
       <router-view/>
     </keep-alive>
-    
   </div>
 </template>
 <script>
-  import { mapGetters, mapActions } from 'vuex'
-  import { mapState } from 'vuex'
-export default {
-  name: 'App',
-  
-  computed:mapState({
-    alertMsg: state => {
-        return state.alertMsg 
-    },            
-    ...mapGetters([
-        'showAlert'
-      ]),
-  }) 
-}
+  import { mapGetters, mapState } from 'vuex'
+  export default {
+    name: 'App',
+    
+    computed:mapState({
+      alertMsg: state => {
+          return state.alertMsg 
+      },            
+      ...mapGetters([
+          'showAlert'
+        ]),
+    }) 
+  }
 </script>
 <style>
 

@@ -31,7 +31,6 @@
 </template>
 
 <script>
-//import { mapActions } from 'vuex'
 import * as _ from '../util/index'
 const REG_EAMIL = /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/;
 export default {
