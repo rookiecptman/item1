@@ -1,7 +1,7 @@
 <template>
   <div class="index">
     <div class="header">
-      <router-link to="/login">登录</router-link>
+      <router-link to="/login"><el-button type="text">登录</el-button></router-link>
     </div>
     <div class="nav">
         <div class="nav_1">
@@ -66,9 +66,7 @@
     margin:0;
     padding: 0;
 }
-body{
-    background-color: azure;
-}
+
 .header{
     margin: 0 auto;
     width: 100%;

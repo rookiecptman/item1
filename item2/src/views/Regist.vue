@@ -1,35 +1,33 @@
 <template>
-    <div class="login">
-        <div class="title">welcome to FZU</div>
-        <div class="login-form">
-            <form action="#">
-                <div class="user-name common-div">
-                    <input type="text" v-model="username" placeholder="用户名" />  
+    <div class="register">
+        <el-container>
+            <el-header height="200px" class="header-register">
+                <img src="../assets/fzu.png" width="10%"/>
+            </el-header>
+            <el-main class="main-register">
+                <div class="login-form">
+                    <form action="#" class="main-register-form">
+                        <el-input type="text" style="width: 40%;"  v-model="username" placeholder="请输入用户名" prefix-icon="el-icon-user"></el-input>  
+                        <el-input type="text" style="width: 40%;"  v-model="email" placeholder="请输入邮箱" prefix-icon="el-icon-message"></el-input>    
+                        <el-input type="text" style="width: 40%;"  placeholder="请输入密码" v-model="password" show-password prefix-icon="el-icon-key"></el-input> 
+                        <div class="main-register-form-code" style="width: 50%;">      
+                            <el-input type="text" style="width: 80%;" v-model="codeEmail" placeholder="请输入验证码" prefix-icon="el-icon-mobile-phone"></el-input>  
+                            <el-button type="success" class="verifi-code" @click="getCodeEmail" v-show="!sendCode">获取验证码</el-button>
+                            <el-button class="verifi-code readonly" v-show="sendCode">{{timeOut}}秒重新获取</el-button>
+                        </div>
+                        <el-button type="primary" class="login-btn" @click="regist" style="width: 40%;">注册</el-button>
+                    </form>
                 </div>
-                <div class="user-email common-div">
-                    <input type="text" v-model="email" placeholder="邮箱" />  
+            </el-main>
+            <el-footer class="footer-register">
+                <div class="forgets">
+                    <router-link to="/login"><el-button type="text">已有账号?登录>></el-button></router-link>
                 </div>
-                <div class="user-pasw common-div">
-                    <input type="password" v-model="password" placeholder="密码" />        
+                <div class="prompt">
+                    <p>注：若未收到验证码，请查看垃圾箱</p>
                 </div>
-                <div class="user-code common-div">
-                    <input type="text" style="width: 50%;" v-model="codeEmail" placeholder="验证码" />
-                    <span class="verifi-code" @click="getCodeEmail" v-show="!sendCode">
-                        获取验证码
-                    </span>
-                    <span class="verifi-code readonly" v-show="sendCode">
-                        {{timeOut}}秒重新获取
-                    </span>
-                </div>
-                <div class="login-btn" @click="regist">注册</div>
-            </form>
-        </div>
-        <div class="forgets">
-            <router-link to="/Login">已有账号?登录>></router-link>
-        </div>
-        <div class="prompt">
-            <p>注：若未收到验证码，请查看垃圾箱</p>
-        </div>
+            </el-footer>
+        </el-container>
     </div>
 </template>
 
@@ -142,5 +140,28 @@ export default {
 </script>
 
 <style>
-
+.header-register{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.main-register-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.main-register-form-code{
+    margin-left: 10%;
+}
+.footer-register{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.footer-register{
+    margin: 0 16%;
+}
 </style>

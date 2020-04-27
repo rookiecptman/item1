@@ -1,27 +1,21 @@
 <template>
     <div class="login">
         <el-container>
-            <el-header>
-                <div class="title">FZU欢迎你</div>
+            <el-header class="header-login" height="200px">
+                <img src="../assets/fzu.png" width="10%"/>
             </el-header>
-            <el-main>
+            <el-main class="main-login">
                 <div class="login-form">
-                    <form action="#">
-                        <div class="user-name common-div">  
-                            <el-input type="text" name="email" v-model="email" placeholder="请输入邮箱" prefix-icon="el-icon-message"></el-input>   
-                        </div>
-                        <div class="user-pasw common-div"> 
-                            <el-input type="text" name="password" placeholder="请输入密码" v-model="password" show-password prefix-icon="el-icon-key"></el-input>  
-                        </div>
-                        <el-button type="primary" class="login-btn" @click="_login">登录</el-button>
+                    <form action="#" class="main-login-form">
+                        <el-input type="text" name="email" style="width: 40%;" v-model="email" placeholder="请输入邮箱" prefix-icon="el-icon-message"></el-input>   
+                        <el-input type="text" name="password" style="width: 40%;" placeholder="请输入密码" v-model="password" show-password prefix-icon="el-icon-key"></el-input>  
+                        <el-button type="primary" class="login-btn" @click="_login" style="width: 40%;">登录</el-button>
                     </form>
                 </div>
             </el-main>
-            <el-footer>
-                <div class="forgets">
+            <el-footer class="footer-login">
                     <router-link to="/reset"><el-button type="text">忘记密码</el-button></router-link>
                     <router-link to="/regist"><el-button type="text">注册</el-button></router-link>
-                </div>
             </el-footer>
         </el-container>
     </div>
@@ -83,5 +77,25 @@ export default {
 </script>
 
 <style >
-
+.header-login{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.main-login-form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.footer-login{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+.footer-login a{
+    margin: 0 8%;
+}
 </style>
