@@ -1,21 +1,29 @@
 <template>
     <div class="login">
-        <div class="title">FZU欢迎你</div>
-        <div class="login-form">
-            <form action="#">
-                <div class="user-name common-div">
-                    <input type="text" name="email" v-model="email" placeholder="邮箱" />        
+        <el-container>
+            <el-header>
+                <div class="title">FZU欢迎你</div>
+            </el-header>
+            <el-main>
+                <div class="login-form">
+                    <form action="#">
+                        <div class="user-name common-div">  
+                            <el-input type="text" name="email" v-model="email" placeholder="请输入邮箱" prefix-icon="el-icon-message"></el-input>   
+                        </div>
+                        <div class="user-pasw common-div"> 
+                            <el-input type="text" name="password" placeholder="请输入密码" v-model="password" show-password prefix-icon="el-icon-key"></el-input>  
+                        </div>
+                        <el-button type="primary" class="login-btn" @click="_login">登录</el-button>
+                    </form>
                 </div>
-                <div class="user-pasw common-div">
-                    <input type="password" name="password" v-model="password" placeholder="密码" />        
+            </el-main>
+            <el-footer>
+                <div class="forgets">
+                    <router-link to="/reset"><el-button type="text">忘记密码</el-button></router-link>
+                    <router-link to="/regist"><el-button type="text">注册</el-button></router-link>
                 </div>
-                <div class="login-btn" @click="_login">登录</div>
-            </form>
-        </div>
-        <div class="forgets">
-            <router-link to="/reset">忘记密码?</router-link>
-            <router-link to="/regist">新来的?注册</router-link>
-        </div>
+            </el-footer>
+        </el-container>
     </div>
 </template>
 
@@ -34,28 +42,30 @@ export default {
         // 用户登录
         _login() {
             console.log(this)
-            let params = {
-                email:this.email,
-                password:this.password
+            var data = {
+                "email":this.email,
+                "password":this.password
             }
-            if(!params.email || !params.password){
+            if(!data.email || !data.password){
                 _.alert('请填写完整')
                 return;
             }
-            if(!REG_EAMIL.test(params.email)){
+            if(!REG_EAMIL.test(data.email)){
                 _.alert('邮箱格式错误')
             }
             
-            /* this.$axios.post('/api/login',this.stringify(params))
+            this.$axios.post('/api/login',JSON.stringify(data))
             .then(res => {
-                if(res.data.succ){
+                console.log(res)
+                if(res.data.msg){
                     _.loginInfo({
                         state:true,
-                        user:params.email
+                        token:data.data.token,
+                        user:data.email
                     });
                     _.alert(res.data.msg)
                     setTimeout(()=>{
-                        this.$router.push('/home');//跳转到主页界面
+                        this.$router.push('/');//跳转到主页界面
                     },1000)
                     
                 }else{
@@ -63,9 +73,9 @@ export default {
                     _.alert(res.data.msg);
                 }
             })
-            .catch(res => {
+            .catch(err => {
                  _.alert('系统错误')
-            }); */
+            })
             
         }
     }

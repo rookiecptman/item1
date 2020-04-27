@@ -9,6 +9,9 @@
                 <div class="user-pasw common-div">
                     <input type="password" v-model="password" placeholder="密码" />        
                 </div>
+                <div class="user-pasw1 common-div">
+                    <input type="password" v-model="password1" placeholder="确认密码" />        
+                </div>
                 <div class="user-code common-div">
                     <input type="text" style="width: 50%;" v-model="codeEmail" placeholder="验证码" />
                     <span class="verifi-code" @click="getCodeEmail" v-show="!sendCode">
@@ -39,6 +42,7 @@ export default {
         return {
             email: '',
             password: '',
+            password1:'',
             codeEmail: '',
             sendCode: false,
             timeOut: 60
@@ -57,12 +61,11 @@ export default {
                 _.alert('邮箱格式错误');
                 return 
             }
-            /* this.$axios.get('/api/getValidEmail',{
-                params:{
-                    email: this.email
-                }
-            }).then(res => {
-                if(res.data.succ){
+            var data = {
+                    "email": this.email
+            }
+            this.$axios.put('/api/code',JSON.stringify(data)).then(res => {
+                if(res.data.msg){
                     _.alert(res.data.msg);
                     me.sendCode = true;
                     me.timeOut = 60;
@@ -72,7 +75,7 @@ export default {
                 }
             }).catch(res => {
                     _.alert('系统错误')
-            }); */
+            });
         },
         setTimeOut () {
             let me = this;
@@ -102,17 +105,22 @@ export default {
             if(/^\d$/.test(this.password)){
                 _.alert('密码不能全为数字');
             }
-            let params = {
-                email:this.email,
-                password:this.password,
-                codeEmail:this.codeEmail
+            if (this.password!=this.password1) {
+                _.alert('密码不相同')
+                return
             }
-/*             this.$axios.post('/api/resetPass',this.$qs.stringify(params))
+            let data = {
+                "password":this.password,
+                "email":this.email,
+                "code":this.codeEmail
+            }
+            this.$axios.put('/api/user',JSON.stringify(data))
             .then(res => {
-                if(res.data.succ){
+                console.log(res)
+                if(res.data.msg){
                     _.alert(res.data.msg)
                     setTimeout(function(){
-                        me.$router.push('/');//跳转到登录界面
+                        me.$router.push('/login');//跳转到登录界面
                     },1000)
                     
                 }else{
@@ -121,7 +129,7 @@ export default {
             })
             .catch(res => {
                  _.alert('邮件发送失败')
-            }); */
+            });
         }
     }
 }

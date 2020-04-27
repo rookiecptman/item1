@@ -3,14 +3,17 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import axios from 'axios'
+import qs from 'qs'
+import './plugins/element.js'
 
 Vue.config.productionTip = false
 axios.defaults.withCredentials=true
 axios.defaults.headers = {
-  "Content-Type": "application/x-www-form-urlencoded"
+  "Content-Type": "application/json;charset=UTF-8"
 }
-axios.defaults.baseURL = 'http://127.0.0.1:3000'
-Vue.prototype.$axios = axios;
+axios.defaults.baseURL = 'http://58.87.77.5:8080'
+Vue.prototype.$axios = axios
+Vue.prototype.$qs = qs
 
 new Vue({
   router,

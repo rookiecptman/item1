@@ -10,6 +10,7 @@ export default new Vuex.Store({
     showAlert: false, //弹框显隐
     loginInfo:{
         state:false,
+        token:'',
         user:''
     }
   },

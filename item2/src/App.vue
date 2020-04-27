@@ -1,32 +1,36 @@
 <template>
   <div id="app">
-    <div class="alert" v-show="showAlert">
-        <div class="alert-wrap">
-            <div class="text">
-                {{alertMsg}}
-            </div>
-        </div>
-    </div>
-    <keep-alive>
-      <router-view/>
-    </keep-alive>
+    <el-alert
+    type="warning"
+    center
+    show-icon
+    title="警告"
+    v-show="showAlert">
+    {{alertMsg}}
+    </el-alert>
+    <router-view/>
   </div>
 </template>
+
 <script>
-  import { mapGetters, mapState } from 'vuex'
-  export default {
-    name: 'App',
-    
-    computed:mapState({
-      alertMsg: state => {
-          return state.alertMsg 
-      },            
-      ...mapGetters([
+import { mapGetters, mapState } from 'vuex'
+export default {
+  data() {
+    return {
+    }
+  },
+  name: 'app',
+  computed:mapState({
+    alertMsg: state => {
+        return state.alertMsg 
+    },
+    ...mapGetters([
           'showAlert'
-        ]),
-    }) 
-  }
+      ])
+  })
+}
 </script>
+
 <style>
 
 </style>

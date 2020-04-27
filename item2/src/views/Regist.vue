@@ -4,6 +4,9 @@
         <div class="login-form">
             <form action="#">
                 <div class="user-name common-div">
+                    <input type="text" v-model="username" placeholder="用户名" />  
+                </div>
+                <div class="user-email common-div">
                     <input type="text" v-model="email" placeholder="邮箱" />  
                 </div>
                 <div class="user-pasw common-div">
@@ -37,6 +40,7 @@ export default {
     name:'regist',
     data() {
         return {
+            username:'',
             email: '',
             password: '',
             codeEmail: '',
@@ -49,6 +53,14 @@ export default {
     methods: {
         getCodeEmail () {
             let me = this;
+            if (!this.username) {
+                _.alert('用户名不能为空')
+                return
+            }
+            if (!this.password) {
+                _.alert('请输入密码')
+                return
+            }
             if (!this.email) {
                 _.alert('请输入邮箱')
                 return
@@ -57,12 +69,12 @@ export default {
                 _.alert('邮箱格式错误');
                 return 
             }
-            /* this.$axios.get('/api/getValidEmail',{
-                params:{
-                    email: this.email
-                }
-            }).then(res => {
-                if(res.data.succ){
+            var data = {
+                    "email": this.email
+            }
+            this.$axios.post('/api/code',JSON.stringify(data)).then(res => {
+                console.log(res)
+                if(res.data.msg){
                     _.alert(res.data.msg);
                     me.sendCode = true;
                     me.timeOut = 60;
@@ -72,7 +84,7 @@ export default {
                 }
             }).catch(res => {
                     _.alert('系统错误')
-            }); */
+            });
         },
         setTimeOut () {
             let me = this;
@@ -102,17 +114,19 @@ export default {
             if(/^\d$/.test(this.password)){
                 _.alert('密码不能全为数字');
             }
-            let params = {
-                email:this.email,
-                password:this.password,
-                codeEmail:this.codeEmail
+            let data = {
+                "username": this.username,
+                "password":this.password,
+                "email":this.email,
+                "code":this.codeEmail
             }
-            /* this.$axio.post('/api/register',this.$qs.stringify(params))
+            this.$axios.post('/api/user',JSON.stringify(data))
             .then(res => {
-                if(res.data.succ){
+                console.log(res)
+                if(res.data.msg){
                     _.alert(res.data.msg)
                     setTimeout(function(){
-                        me.$router.push('/');//跳转到登录界面
+                        me.$router.push('/login');//跳转到登录界面
                     },1000)
                     
                 }else{
@@ -121,7 +135,7 @@ export default {
             })
             .catch(res => {
                  _.alert('邮件发送失败')
-            }); */
+            });
         }
     }
 }
