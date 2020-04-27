@@ -1,7 +1,7 @@
 <template>
     <div class="register">
         <el-container>
-            <el-header height="200px" class="header-register">
+            <el-header height="400px" class="header-register">
                 <img src="../assets/fzu.png" width="10%"/>
             </el-header>
             <el-main class="main-register">
@@ -12,8 +12,8 @@
                         <el-input type="text" style="width: 40%;"  placeholder="请输入密码" v-model="password" show-password prefix-icon="el-icon-key"></el-input> 
                         <div class="main-register-form-code" style="width: 50%;">      
                             <el-input type="text" style="width: 80%;" v-model="codeEmail" placeholder="请输入验证码" prefix-icon="el-icon-mobile-phone"></el-input>  
-                            <el-button type="success" class="verifi-code" @click="getCodeEmail" v-show="!sendCode">获取验证码</el-button>
-                            <el-button class="verifi-code readonly" v-show="sendCode">{{timeOut}}秒重新获取</el-button>
+                            <el-button type="success" class="verifi-code" @click="getCodeEmail" v-if="!sendCode">获取验证码</el-button>
+                            <el-button class="verifi-code readonly" v-if="sendCode">{{timeOut}}秒重新获取</el-button>
                         </div>
                         <el-button type="primary" class="login-btn" @click="regist" style="width: 40%;">注册</el-button>
                     </form>
@@ -73,7 +73,6 @@ export default {
             this.$axios.post('/api/code',JSON.stringify(data)).then(res => {
                 console.log(res)
                 if(res.data.msg){
-                    _.alert(res.data.msg);
                     me.sendCode = true;
                     me.timeOut = 60;
                     me.setTimeOut()
@@ -122,7 +121,6 @@ export default {
             .then(res => {
                 console.log(res)
                 if(res.data.msg){
-                    _.alert(res.data.msg)
                     setTimeout(function(){
                         me.$router.push('/login');//跳转到登录界面
                     },1000)

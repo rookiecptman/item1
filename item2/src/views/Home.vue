@@ -69,7 +69,7 @@
 
 .header{
     margin: 0 auto;
-    width: 100%;
+    width: 1150px;
     height: 40px;
     background-color: lightpink;
 }

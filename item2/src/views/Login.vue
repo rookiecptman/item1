@@ -1,7 +1,7 @@
 <template>
     <div class="login">
         <el-container>
-            <el-header class="header-login" height="200px">
+            <el-header class="header-login" height="400px">
                 <img src="../assets/fzu.png" width="10%"/>
             </el-header>
             <el-main class="main-login">
@@ -50,18 +50,16 @@ export default {
             
             this.$axios.post('/api/login',JSON.stringify(data))
             .then(res => {
-                console.log(res)
-                if(res.data.msg){
-                    _.loginInfo({
-                        state:true,
-                        token:data.data.token,
-                        user:data.email
-                    });
-                    _.alert(res.data.msg)
+                if(res.status===200){
                     setTimeout(()=>{
                         this.$router.push('/');//跳转到主页界面
                     },1000)
-                    
+                    _.loginInfo({
+                        state:true,
+                        token:res.data.data.token,
+                        user:data.email
+                    })
+                    console.log(res)
                 }else{
                     
                     _.alert(res.data.msg);
